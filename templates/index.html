@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Highlighter</title>
+</head>
+<body>
+    <h1>PDF Highlighter</h1>
+
+    {% if download_link %}
+        <p>PDF successfully uploaded and modified!</p>
+        <a href="{{ url_for('download') }}" download>DOWNLOAD MODIFIED PDF</a>
+    {% else %}
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <label for="pdfFile">Upload PDF:</label>
+            <input type="file" name="pdfFile" id="pdfFile" accept=".pdf" required>
+            <br>
+            <button type="submit">UPLOAD PDF</button>
+        </form>
+    {% endif %}
+</body>
+</html>
