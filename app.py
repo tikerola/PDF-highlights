@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, send_file
 import os
-from highlight_chords import highlight_chords  # Assuming you have a function for modifying PDF
+from highlight_chords import highlight_chords
 
 app = Flask(__name__)
 
@@ -22,6 +22,9 @@ def upload():
         pdf_file = request.files['pdfFile']
 
         if pdf_file and allowed_file(pdf_file.filename):
+            # Ensure the 'uploads' directory exists on PythonAnywhere
+            create_upload_folder_pythonanywhere()
+
             # Save the original PDF
             pdf_path = os.path.join(app.config['UPLOAD_FOLDER'], pdf_file.filename)
             pdf_file.save(pdf_path)
@@ -41,6 +44,12 @@ def upload():
 def download():
     file_path = os.path.join(app.config['UPLOAD_FOLDER'], 'output.pdf')
     return send_file(file_path, as_attachment=True)
+
+def create_upload_folder_pythonanywhere():
+    # Ensure the 'uploads' directory exists on PythonAnywhere
+    upload_folder_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'uploads')
+    if not os.path.exists(upload_folder_path):
+        os.makedirs(upload_folder_path)
 
 if __name__ == '__main__':
     app.run(debug=True)
