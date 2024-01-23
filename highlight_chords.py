@@ -45,7 +45,7 @@ def highlight_chords(input_pdf, output_pdf):
     }
 
     # Padding and line strength
-    padding = 3
+    padding = 1
     line_strength = 2
 
     # Memorize starting coordinates to avoid duplicate borders
