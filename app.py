@@ -47,7 +47,7 @@ def download():
 
 def create_upload_folder_pythonanywhere():
     # Ensure the 'uploads' directory exists on PythonAnywhere
-    upload_folder_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'uploads')
+    upload_folder_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'uploads')
     if not os.path.exists(upload_folder_path):
         os.makedirs(upload_folder_path)
 

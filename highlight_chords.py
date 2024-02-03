@@ -6,6 +6,8 @@ def highlight_chords(input_pdf, output_pdf):
 
     # Chord colors in RGB format (0-255)
     chord_colors = {
+        
+        
         "CŒ„Š7": (0, 0, 0),
         "D/F©": (0.62, 0.4, 0.18),
         "GŒ„Š7": (0, 0, 0),
@@ -25,6 +27,16 @@ def highlight_chords(input_pdf, output_pdf):
         "A©": (0.99, 0.89, 0),
         "B©": (0.24, 0.68, 0.17),
         "H©": (0.24, 0.68, 0.17),
+        "Cm": (0.89, 0.12, 0.13),
+        "Dm": (0.62, 0.4, 0.18),
+        "Em": (0.78, 0.78, 0.78),
+        "Fm": (0, 0.51, 0.79),
+        "Gm": (0.13, 0.13, 0.13),
+        "Am": (0.99, 0.89, 0),
+        "Bm↑": (0.24, 0.68, 0.17),
+        "Hm↑": (0.24, 0.68, 0.17),
+        "Bm": (0.24, 0.68, 0.17),
+        "Hm": (0.24, 0.68, 0.17),
         "C‹": (0.89, 0.12, 0.13),
         "D‹": (0.62, 0.4, 0.18),
         "E‹": (0.78, 0.78, 0.78),
@@ -50,7 +62,7 @@ def highlight_chords(input_pdf, output_pdf):
 
     # Memorize starting coordinates to avoid duplicate borders
     processed_coordinates = set()
-
+    index = 0
     # Loop through each page in the PDF
     for page_num in range(pdf_document.page_count):
         # Get the page
@@ -75,7 +87,10 @@ def highlight_chords(input_pdf, output_pdf):
                 text_in_box = page.get_text("text", clip=(x0, y0, x1, y1)).strip()
 
                 # Check if the extracted text matches the chord exactly
-                if text_in_box == chord:
+                if chord == text_in_box:
+                    index += 1
+                    #print(page.get_text("text", clip=(x0, y0, x1, y1)))
+                    #print(chord, '***', text_in_box, '***', instance, '***', index)
                     # Check if the starting coordinates have already been processed
                     if (x0, y0) not in processed_coordinates:
                         # Draw lines around the chord on the original page
@@ -84,8 +99,8 @@ def highlight_chords(input_pdf, output_pdf):
                         page.draw_line((x0, y1), (x1, y1), color=color, width=line_strength)  # Bottom line
                         page.draw_line((x0, y0), (x0, y1), color=color, width=line_strength)  # Left line
 
-                        # Memorize the starting coordinates
-                        processed_coordinates.add((x0, y0))
+                    # Memorize the starting coordinates
+                    processed_coordinates.add((x0, y0))
 
     # Save the modified PDF
     pdf_document.save(output_pdf)
