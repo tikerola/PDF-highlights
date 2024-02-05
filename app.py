@@ -4,6 +4,7 @@ from highlight_chords import highlight_chords
 
 app = Flask(__name__)
 
+# /home/tikero/PDF-highlights/uploads
 UPLOAD_FOLDER = 'uploads'
 ALLOWED_EXTENSIONS = {'pdf'}
 
