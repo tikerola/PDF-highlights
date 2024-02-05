@@ -85,6 +85,8 @@ def highlight_chords(input_pdf, output_pdf):
 
                 # Extract the text inside the bounding box
                 text_in_box = page.get_text("text", clip=(x0, y0, x1, y1)).strip()
+                if '\n' in text_in_box:
+                    text_in_box = text_in_box.split('\n')[1]
 
                 # Check if the extracted text matches the chord exactly
                 if chord == text_in_box:
@@ -101,6 +103,9 @@ def highlight_chords(input_pdf, output_pdf):
 
                     # Memorize the starting coordinates
                     processed_coordinates.add((x0, y0))
+                    
+                # else:
+                #     print(page.get_text("text", clip=(x0, y0, x1, y1)))
 
     # Save the modified PDF
     pdf_document.save(output_pdf)
