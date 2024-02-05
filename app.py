@@ -5,7 +5,7 @@ from highlight_chords import highlight_chords
 app = Flask(__name__)
 
 # /home/tikero/PDF-highlights/uploads
-UPLOAD_FOLDER = 'uploads'
+UPLOAD_FOLDER = '/home/tikero/PDF-highlights/uploads'
 ALLOWED_EXTENSIONS = {'pdf'}
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -48,7 +48,7 @@ def download():
 
 def create_upload_folder_pythonanywhere():
     # Ensure the 'uploads' directory exists on PythonAnywhere
-    upload_folder_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'uploads')
+    upload_folder_path = '/home/tikero/PDF-highlights/uploads'
     if not os.path.exists(upload_folder_path):
         os.makedirs(upload_folder_path)
 
