@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, send_file
+from flask import Flask, render_template, request, send_file
 import os
 from highlight_chords import highlight_chords
 
@@ -21,6 +21,7 @@ def index():
 def upload():
     if 'pdfFile' in request.files:
         pdf_file = request.files['pdfFile']
+        instrument = request.form.get('instrument')  # Extract the selected instrument
 
         if pdf_file and allowed_file(pdf_file.filename):
             # Ensure the 'uploads' directory exists on PythonAnywhere
@@ -30,9 +31,9 @@ def upload():
             pdf_path = os.path.join(app.config['UPLOAD_FOLDER'], pdf_file.filename)
             pdf_file.save(pdf_path)
 
-            # Modify the PDF and save as output.pdf
+            # Modify the PDF and save as output.pdf, passing instrument as a third variable
             output_path = os.path.join(app.config['UPLOAD_FOLDER'], 'output.pdf')
-            highlight_chords(pdf_path, output_path)
+            highlight_chords(pdf_path, output_path, instrument)
 
             return render_template('index.html', download_link=True)
         else:

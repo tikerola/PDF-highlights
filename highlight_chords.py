@@ -1,12 +1,12 @@
 import fitz  # PyMuPDF
 
-def highlight_chords(input_pdf, output_pdf):
+def highlight_chords(input_pdf, output_pdf, key='Piano'):
     # Open the PDF file
     pdf_document = fitz.open(input_pdf)
 
     # Chord colors in RGB format (0-255)
     chord_colors = {
-        "piano": {
+        "Piano": {
             "C©‹": (0.89, 0.12, 0.13),
             "D©‹": (0.62, 0.4, 0.18),
             "E©‹": (0.78, 0.78, 0.78),
@@ -50,7 +50,7 @@ def highlight_chords(input_pdf, output_pdf):
             "B": (0.24, 0.68, 0.17),
             "H": (0.24, 0.68, 0.17)
         },
-        "boomwhacker": {
+        "Boomwhacker": {
             "C©‹": (1.0, 0.0, 0.0),
             "D©‹": (1.0, 0.65, 0.0),
             "E©‹": (1.0, 1.0, 0.0),
@@ -109,7 +109,7 @@ def highlight_chords(input_pdf, output_pdf):
         page = pdf_document[page_num]
 
         # Loop through the chords and highlight them using search_for()
-        for chord, color in chord_colors.items():
+        for chord, color in chord_colors[key].items():
             # Use a case-sensitive search to find occurrences of the chord
             instances = page.search_for(chord)
 
